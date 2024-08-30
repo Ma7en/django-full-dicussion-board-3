@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+<!-- pagetitle -->
+{% block pagetitle %} My Account {% endblock %}
+
+<!-- breadcrumb -->
+{% block breadcrumb %}
+<li class="breadcrumb-item text-white">
+    <a href="{% url 'home' %}" class="text-white">Home</a>
+</li>
+
+<li
+    class="breadcrumb-item active text-white text-capitalize"
+    aria-current="page"
+>
+    My Account
+</li>
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+<form method="POST" class="">
+    {% csrf_token %}
+    <!--  -->
+
+    {% include 'includes/form.html' %}
+
+    <div class="mb-3">
+        <button class="btn btn-success text-capitalize" type="submit">
+            save changes
+        </button>
+    </div>
+</form>
+{% endblock %}

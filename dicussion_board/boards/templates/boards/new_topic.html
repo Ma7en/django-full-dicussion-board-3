@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load widget_tweaks %}
+
+<!-- pagetitle -->
+{% block pagetitle %} New Topic {% endblock %}
+
+<!-- breadcrumb -->
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'home' %}" class="text-white">Home</a>
+</li>
+
+<li class="breadcrumb-item">
+    <a href="{% url 'board_topics' board.id %}" class="text-white"
+        >{{ board.name }}</a
+    >
+</li>
+
+<li class="breadcrumb-item active" aria-current="page">New Topic</li>
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+<form method="POST" class="">
+    {% csrf_token %}
+    <!--  -->
+
+    {% include 'includes/form.html' %}
+
+    <div class="mb-3">
+        <button class="btn btn-success" type="submit">Add</button>
+    </div>
+</form>
+{% endblock %}

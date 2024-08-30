@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+<!-- pagetitle -->
+{% block pagetitle %} Boards | Topics {% endblock %}
+
+<!-- breadcrumb -->
+{% block breadcrumb %}
+<li class="breadcrumb-item text-white">
+    <a href="{% url 'home' %}" class="text-white">Home</a>
+</li>
+
+<li class="breadcrumb-item active text-white" aria-current="page">
+    {{ board.name }}
+</li>
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="create mb-3">
+    <a
+        href="{% url 'new_topic' board.pk %}"
+        class="btn btn-primary text-capitalize"
+        >New topic</a
+    >
+</div>
+
+<table class="table">
+    <thead class="text-bg-dark">
+        <tr>
+            <td>id</td>
+            <td>Topic</td>
+            <td>Created by</td>
+            <td>Posts</td>
+            <td>Views</td>
+            <td>Created Data</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for topic in topics %}
+        <tr>
+            <td>{{ topic.id }}</td>
+            <td>
+                <a href="{% url 'topic_posts' board.pk topic.pk %}">
+                    {{ topic.subject }}
+                </a>
+            </td>
+            <td>{{ topic.created_by.username }}</td>
+            <td>{{ topic.comments }}</td>
+            <td>{{ topic.views }}</td>
+            <td>{{ topic.created_dt }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<ul class="pagination">
+    <!-- start previous page -->
+    {% if topics.has_previous %}
+    <li class="page-item">
+        <a
+            href="?page={{topics.previous_page_number}}"
+            class="page-link text-capitalize"
+        >
+            previous
+        </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+        <a href="" class="page-link text-capitalize">previous</a>
+    </li>
+    {% endif %}
+    <!-- end previous page -->
+
+    {% comment %}
+    <!-- start number pages -->
+    {% for page_num in topics.paginator.page_range %}
+    <!--  -->
+    {% if topics.number == page_num %}
+    <li class="page-item active">
+        {{page_num}}
+        <span>(current)</span>
+    </li>
+    {% else %}
+    <li class="page-item">
+        {{page_num}}
+        <a href="?page={{page_num}}" class="page-link">{{page_num}}</a>
+    </li>
+    <!--  -->
+    {% endif %}
+    <!--  -->
+    {% endfor %}
+    <!-- end number pages -->
+    {% endcomment %}
+
+    <!-- start next page -->
+    {% if topics.has_next %}
+    <li class="page-item">
+        <a
+            href="?page={{topics.next_page_number}}"
+            class="page-link text-capitalize"
+        >
+            Next
+        </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+        <a href="" class="page-link text-capitalize"> Next </a>
+    </li>
+    {% endif %}
+    <!-- end next page -->
+</ul>
+{% endblock %}

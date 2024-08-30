@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load widget_tweaks %}
+
+<!-- pagetitle -->
+{% block pagetitle %} Signup {% endblock %}
+
+<!-- content -->
+{% block body %}
+<div>
+    <div class="container py-5">
+        <div class="title">
+            <h2 class="text-capitalize text-center">Signup</h2>
+        </div>
+
+        <form method="POST" class="">
+            {% csrf_token %}
+            <!--  -->
+
+            {% include 'includes/form.html' %}
+
+            <div class="mb-3">
+                <button class="btn btn-success text-capitalize" type="submit">
+                    Create new user
+                </button>
+            </div>
+        </form>
+
+        <div class="card-footer text-muted text-center">
+            already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

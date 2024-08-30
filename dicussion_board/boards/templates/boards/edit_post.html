@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% load widget_tweaks %}
+
+<!-- pagetitle -->
+{% block pagetitle %} Edit Post {% endblock %}
+
+<!-- breadcrumb -->
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'home' %}" class="text-white">Home</a>
+</li>
+
+<li class="breadcrumb-item">
+    <a href="{% url 'board_topics' post.topic.board.pk %}" class="text-white"
+        >{{ post.topic.board.name }}</a
+    >
+</li>
+
+<li class="breadcrumb-item text-white">
+    <a
+        href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}"
+        class="text-white"
+        >{{ post.topic.subject }}</a
+    >
+</li>
+{% comment %}
+<!-- 
+post.topic === post.topic.subject == maz
+post.topic.pk == 10
+post.topic.board.pk == 1
+-->
+{% endcomment %}
+
+<li class="breadcrumb-item active text-capitalize" aria-current="page">
+    Edit Post
+</li>
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+<form method="POST" class="mb-4">
+    {% csrf_token %}
+    <!--  -->
+
+    {% include 'includes/form.html' %}
+
+    <div class="mb-3">
+        <button class="btn btn-success" type="submit">Add</button>
+    </div>
+</form>
+{% endblock %}

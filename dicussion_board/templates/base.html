@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="{%static 'assets/css/bootstrap.min.css'%}"
+        />
+        <link rel="stylesheet" href="{%static 'assets/css/style.css'%}" />
+
+        <title>{% block pagetitle %} {% endblock %}</title>
+    </head>
+    <body>
+        {% block body %}
+        <!-- navbar -->
+        <nav
+            class="navbar navbar-expand-lg bg-body-tertiary"
+            data-bs-theme="dark"
+        >
+            <div class="container-fluid">
+                <a class="navbar-brand text-capitalize" href="{% url 'home' %}"
+                    >Django Boards</a
+                >
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <!--  -->
+
+                        {% if user.is_authenticated %}
+
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Welcome ({{ user.username }})
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a
+                                        class="dropdown-item text-capitalize"
+                                        href="{% url 'my_account' %}"
+                                        >my account</a
+                                    >
+                                </li>
+
+                                <li>
+                                    <a
+                                        class="dropdown-item text-capitalize"
+                                        href="{% url 'changepassword' %}"
+                                        >Change password</a
+                                    >
+                                </li>
+
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'logout' %}"
+                                        >Logout</a
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+
+                        {% else %}
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page"
+                                href="{% url 'login' %}"
+                                >Login</a
+                            >
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page"
+                                href="{% url 'signup' %}"
+                                >Signup</a
+                            >
+                        </li>
+
+                        {% endif %}
+
+                        <li class="nav-item">
+                            <a class="nav-link"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- breadcrumb -->
+        <div class="bread-crumb my-3">
+            <div class="container">
+                <nav
+                    aria-label="breadcrumb"
+                    class="px-4 py-3 text-bg-secondary rounded-3 text-capitalize"
+                >
+                    <ol class="breadcrumb mb-0">
+                        {% block breadcrumb %} {% endblock %}
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- content -->
+        <main>
+            <section>
+                <div class="boards">
+                    <div class="container pb-5">
+                        {% block content %} {% endblock %}
+                    </div>
+                </div>
+            </section>
+        </main>
+        {% endblock %}
+
+        <!-- script -->
+        <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    </body>
+</html>

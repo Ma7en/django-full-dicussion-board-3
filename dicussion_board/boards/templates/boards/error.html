@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<!-- pagetitle -->
+{% block pagetitle %} Topics | Not Found {% endblock %}
+
+<!-- breadcrumb -->
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'home' %}" class="text-white">Home</a>
+</li>
+
+<li class="breadcrumb-item active text-white" aria-current="page">not found</li>
+
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+
+<div>
+    <h1 class="text-center text-capitalize">
+        not found board number ({{ id }})
+    </h1>
+</div>
+
+{% endblock %}

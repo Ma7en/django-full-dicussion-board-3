@@ -1,0 +1,191 @@
+
+<!-- form -->
+{% for field in form %}
+<div class="mb-3">
+    <!-- label -->
+    {{ field.label_tag }}
+
+    <!-- start1 input -->
+    {% if form.is_bound %}
+
+    <!-- start 2 -->
+    {% if field.errors %}
+    <!--  -->
+    {% render_field field class="form-control is-invalid" %}
+
+    <!-- start 3 -->
+    {% for error in fields.errors %}
+    <div class="invalid-feedback">{{error}}</div>
+    <!-- end 3 -->
+    {% endfor %}
+    <!--  -->
+    {% else %}
+    <!--  -->
+    {% render_field field class="form-control is-valid" %}
+
+    <!-- end 2  -->
+    {% endif %}
+
+    <!-- med 1 -->
+    {% else %}
+    <!--  -->
+    {% render_field field class="form-control" %}
+    <!-- end 1 -->
+    {% endif %}
+
+    <!-- help -->
+    {% if field.help_text %}
+    <small class="form-text text-muted"> {{ field.help_text }} </small>
+    {% endif %}
+</div>
+{% endfor %}
+
+
+# =================================================================
+# =================================================================
+
+
+
+
+<!--  -->
+
+{% for field in form %}
+<div class="mb-3">
+    {{ field.label_tag }}
+    <!--  -->
+    {% if field.errors %}
+    <!--  -->
+    {{ field }}
+    <div class="invalid-feedback">
+        {% for error in field.errors %}
+        <!--  -->
+        {{ error }}
+        <!--  -->
+        {% endfor %}
+    </div>
+    {% else %}
+    <!--  -->
+    {{ field }}
+    <!--  -->
+    {% endif %}
+</div>
+{% endfor %}
+
+
+
+
+
+
+
+# =================================================================
+# =================================================================
+
+
+
+
+# def new_topic(request, id):
+#     context = {}
+#     try:
+#         board = get_object_or_404(Board, pk=id)
+#         context["board"] = board
+
+#         if request.method == "POST":
+#             subject = request.POST["subject"]
+#             message = request.POST["message"]
+#             user = User.objects.first()
+#             topic = Topic.objects.create(
+#                 subject=subject,
+#                 board=board,
+#                 created_by=user,
+#             )
+#             post = Post.objects.create(
+#                 message=message,
+#                 topic=topic,
+#                 created_by=user,
+#             )
+#             return redirect("board_topics", id=board.pk)
+#     except Board.DoesNotExist:
+#         context["id"] = id
+#         return render(request, "boards/error.html", context)
+#     return render(request, "boards/new_topic.html", context)
+
+
+# def new_topic(request, id):
+#     context = {}
+#     try:
+#         board = get_object_or_404(Board, pk=id)
+#         context["board"] = board
+#         form = NewTopicForm()  # forms
+#         context["form"] = form
+#         user = User.objects.first()  # user
+#         if request.method == "POST":
+#             form = NewTopicForm(request.POST)
+#             if form.is_valid():
+#                 topic = form.save(commit=False)
+#                 topic.board = board
+#                 topic.created_by = user
+#                 topic.save()
+#                 post = Post.objects.create(
+#                     message=form.cleaned_data["message"],
+#                     created_by=user,
+#                     topic=topic,
+#                 )
+#                 return redirect("board_topics", id=board.pk)
+#         else:
+#             form = NewTopicForm()
+#     except Board.DoesNotExist:
+#         context["id"] = id
+#         return render(request, "boards/error.html", context)
+#     return render(request, "boards/new_topic.html", context)
+
+
+
+# =================================================================
+# =================================================================
+
+
+>>> from boards.models import Board
+>>> board = Board.objects.get(name='web programming') 
+>>> board.topics.all()
+<QuerySet [<Topic: python >, <Topic: html>, <Topic: html>, <Topic: test>, <Topic: eeeeee>, <Topic: ddddddddddddddddddd>, <Topic: fff>, <Topic: ddd>, <Topic: maz>]>
+>>> board.topics.count()
+9
+>>>
+
+
+
+
+
+>>> from boards.models import Post
+>>> Post.objects.all()
+<QuerySet [<Post: full stack python>, <Post: html css>, <Post: html css>, <Post: test>, <Post: bbbb>, <Post: eeee>, <Post: ddd>, <Post: ff>, <Post: dddd>, <Post: maz>, <Post: xxxx>, <Post: mazen>, <Post: mazen>, <Post: xcddd maz>, <Post: vvvv>]>
+>>> Post.object.count()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'Post' has no attribute 'object'. Did you mean: 'objects'?
+>>> Post.objects.count() 
+15
+>>>
+
+
+
+
+>>> Post.objects.filter(topic__board = board) 
+<QuerySet [<Post: full stack python>, <Post: mazen>, <Post: mazen>, <Post: html css>, <Post: html css>, <Post: test>, <Post: eeee>, <Post: ddd>, <Post: ff>, <Post: dddd>, <Post: xcddd maz>, <Post: vvvv>, <Post: maz>]>
+>>>
+
+
+
+
+
+
+
+
+
+
+# =================================================================
+# =================================================================
+
+
+
+

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+<!-- pagetitle -->
+{% block pagetitle %} boards {% endblock %}
+
+<!-- breadcrumb -->
+{% block breadcrumb %}
+<li class="breadcrumb-item active text-white" aria-current="page">Home</li>
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+
+<table class="table">
+    <thead class="text-bg-dark">
+        <tr>
+            <th>ID</th>
+            <th>Board</th>
+            <th>Posts</th>
+            <th>Topic</th>
+            <th>Last Post</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for board in boards %}
+        <tr>
+            <th>{{ board.id }}</th>
+            <th>
+                <a href="{% url 'board_topics' board.id %}" class=""
+                    >{{ board.name }}</a
+                >
+                <small class="text-muted d-block"
+                    >{{ board.description }}</small
+                >
+            </th>
+            <th>{{ board.get_posts_count }}</th>
+            <th>{{ board.topics.count }}</th>
+            <th class="">
+                {% with post=board.get_last_post %}
+                <!--  -->
+
+                {% if post %}
+
+                <span class="text-uppercase"> by </span>
+                ({{ post.created_by.username }})
+                <span class="text-uppercase"> at </span>
+                ({{ post.created_dt }})
+                <!--  -->
+                {% else %}
+                <small class="text-capitalize">no posts</small>
+                <!--  -->
+                {% endif %} {% endwith %}
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

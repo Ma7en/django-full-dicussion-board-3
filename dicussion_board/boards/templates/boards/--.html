@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+<!-- pagetitle -->
+{% block pagetitle %} Topics | {{ board.name }} {% endblock %}
+
+<!-- breadcrumb -->
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'home' %}">Home</a>
+</li>
+
+<li class="breadcrumb-item active" aria-current="page">{{ board.name }}</li>
+{% endblock %}
+
+<!-- content -->
+{% block content %}
+
+<table class="table">
+    <thead class="text-bg-dark">
+        <tr>
+            <th>ID</th>
+            <th>Board</th>
+            <th>Topic</th>
+            <th>Last Post</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <th>{{ board.id }}</th>
+            <th>
+                {{ board.name }}
+                <small class="text-muted d-block"
+                    >{{ board.description }}</small
+                >
+            </th>
+            <th>0</th>
+            <th>0</th>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
